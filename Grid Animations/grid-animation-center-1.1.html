@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @keyframes fly {
+            0% {
+                background-color: turquoise;
+            }
+
+            25% {
+                background-color: rgb(64, 224, 77);
+            }
+
+            50% {
+                background-color: rgb(187, 64, 224);
+            }
+
+            75% {
+                background-color: rgb(233, 174, 10);
+            }
+
+            100% {
+                background-color: rgb(255, 0, 0);
+            }
+
+        }
+
+        body {
+            background-color: #222;
+        }
+
+        .item {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #222;
+        }
+
+        .grid {
+            display: inline-grid;
+            grid-template-columns: auto auto auto auto auto auto auto auto auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var delay = 0;
+        var array = document.getElementsByClassName("item");
+        var rowLength = Math.sqrt(array.length);
+
+        var centerPos = (array.length - 1) / 2;
+        Flood(array, centerPos);
+
+        function Flood(array, pos) {
+            if (pos < 0 || pos >= array.length) return;
+            if (array[pos].style.animation != "") return;
+            array[pos].style.animation = "fly 4s infinite " + delay + "ms";
+            
+            delay += 50;
+            Flood(array, pos - 1);
+            Flood(array, pos + 1);
+            Flood(array, pos - rowLength);
+            Flood(array, pos + rowLength);
+            
+            delay += 50;
+            Flood(array, pos - rowLength - 1);
+            Flood(array, pos - rowLength + 1);
+            Flood(array, pos + rowLength - 1);
+            Flood(array, pos + rowLength + 1);
+        }
+    }
+</script>
+
+</html>

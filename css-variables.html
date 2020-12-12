@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+
+    </title>
+    <style>
+        :root {
+            background-color: #222;
+            --magic-color: dodgerblue;
+            --size: 100px;
+        }
+
+        div {
+            display: inline-block;
+            background-color: var(--magic-color);
+            width: var(--size);
+            height: var(--size);
+            border: 1px solid #222;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <div id="c"></div>
+</body>
+<script>
+    function Click(color, size) {
+        document.body.style.setProperty("--magic-color", color);
+        document.body.style.setProperty("--size", size);
+    }
+    document.getElementById("a").onclick = function () { Click("dodgerblue", "100px"); }
+    document.getElementById("b").onclick = function () { Click("purple", "200px"); }
+    document.getElementById("c").onclick = function () { Click("limegreen", "300px"); }
+</script>
+
+</html>

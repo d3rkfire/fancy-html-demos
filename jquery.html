@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JQuery</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style>
+        div {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="first"></div>
+    <div id="second"></div>
+    <div id="third"></div>
+    <div id="fourth"></div>
+    <div id="fifth"></div>
+</body>
+
+<script>
+    $(document).ready(function() {
+        var duration = 1500;
+        $("#first").css("background-color", "crimson");
+        $("#second").css("background-color", "dodgerblue");
+        $("#third").css("background-color", "limegreen");
+        $("#fourth").css("background-color", "purple");
+        $("#fifth").css("background-color", "orange");
+        
+        $("#first").click(() => {
+            $("#first").slideUp(duration);
+            $("#first").slideDown(duration);
+        });
+
+        $("#second").click(() => {
+            $("#second").hide(duration, () => $("#second").show(duration));
+        });
+
+        $("#third").click(() => {
+            $("#third").fadeOut(duration).fadeIn(duration);
+        });
+
+        $("#fourth").click(() => {
+            $("#fourth")
+                .fadeTo(duration, 0)
+                .fadeTo(duration, 0.5)
+                .fadeTo(duration, 0)
+                .fadeTo(duration, 1);
+        });
+
+        $("#fifth").click(() => {
+            $("#fifth")
+                .animate({width: "500px"}, duration)
+                .animate({height: "1000px"}, duration)
+                .animate({width: "200px", height: "200px"}, duration);
+        });
+    });
+</script>
+
+</html>

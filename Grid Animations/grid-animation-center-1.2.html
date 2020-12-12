@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @keyframes fly {
+            0% {
+                background-color: turquoise;
+            }
+
+            25% {
+                background-color: rgb(64, 224, 77);
+            }
+
+            50% {
+                background-color: rgb(187, 64, 224);
+            }
+
+            75% {
+                background-color: rgb(233, 174, 10);
+            }
+
+            100% {
+                background-color: rgb(255, 0, 0);
+            }
+
+        }
+
+        body {
+            background-color: #222;
+        }
+
+        .item {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #222;
+        }
+
+        .grid {
+            display: inline-grid;
+            grid-template-columns: auto auto auto auto auto auto auto auto auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var delay = 0;
+        var array = document.getElementsByClassName("item");
+        var rowLength = Math.sqrt(array.length);
+
+        var centerPos = (array.length - 1) / 2;
+        var originalQueue = [centerPos];
+        Flood(array, originalQueue);
+
+        function Flood(array, posQueue) {
+            var posQueue2 = [];
+            while (posQueue.length > 0) {
+                var pos = posQueue.shift();
+                if (pos < 0 || pos >= array.length) continue;
+                if (array[pos].style.animation != "") continue;
+                array[pos].style.animation = "fly 4s infinite " + delay + "ms";
+
+                posQueue2.push(pos - 1);
+                posQueue2.push(pos + 1);
+                posQueue2.push(pos - 1);
+                posQueue2.push(pos + 1);
+            }
+
+            delay += 50;
+            Flood(array, posQueue2);
+        }
+    }
+</script>
+
+</html>

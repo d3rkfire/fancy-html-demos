@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas</title>
+    <style>
+    body {
+        background-color: #222;
+        text-align: center;
+        color: #fff;
+    }
+    canvas {
+        background-color: #555;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Only set canvas's width and height inline to prevent buggy scale  -->
+    <canvas id="myCanvas" width="800px" height="800px" onmousemove="UpdateMouse(event)"></canvas>
+    <p id="pos"></p>
+</body>
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.scale(1, 1);
+
+    // Fill Rectangle
+    ctx.fillStyle ="dodgerblue";
+    ctx.fillRect(100, 100, 200, 100);
+
+    // Stroke Rectangle
+    ctx.strokeRect(90, 90, 220, 120);
+
+    // Stroke with path
+    ctx.strokeStyle = "red";
+    ctx.beginPath();
+    ctx.moveTo(400, 200);
+    ctx.lineTo(500, 200);
+    ctx.lineTo(500, 100);
+    ctx.lineTo(400, 100);
+    ctx.lineTo(400, 200);
+    // ctx.closePath();
+    ctx.stroke();
+
+    // Fill with path + Radial Gradient
+    var gradient = ctx.createRadialGradient(450, 150, 5, 450, 150, 50);
+    gradient.addColorStop("0.0", "limegreen");
+    gradient.addColorStop("0.5", "dodgerblue");
+    gradient.addColorStop("1.0", "hotpink");
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.moveTo(410, 190);
+    ctx.lineTo(490, 190);
+    ctx.lineTo(490, 110);
+    ctx.lineTo(410, 110);
+    ctx.lineTo(410, 190);
+    ctx.fill();
+    
+    // Stroke with path + Linear Gradient
+    var gradient = ctx.createLinearGradient(400, 100, 500, 100);
+    gradient.addColorStop("0.0", "purple");
+    gradient.addColorStop("0.5", "blue");
+    gradient.addColorStop("1.0", "red");
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(450, 150);
+    ctx.arc(450, 150, 50, 0, 2* Math.PI);
+    ctx.stroke();
+
+    // Stroke Text
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "limegreen";
+    ctx.fillStyle = "limegreen";
+    ctx.font = "30px Ariel";
+    ctx.strokeText("Hello World!", 10, 40);
+
+    // Fill Text
+    ctx.fillText("Hello World!", 10, 70);
+
+    // Draw Image
+    var image = new Image;
+    image.src = "https://i.imgur.com/PCLPU2d.jpeg";
+    image.onload = function() {
+        ctx.drawImage(image, 10, 350, 780, 439);
+    }
+
+    // ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+
+    function UpdateMouse(ev) {
+        var x = ev.clientX - canvas.getBoundingClientRect().left;
+        var y = ev.clientY - canvas.getBoundingClientRect().top;
+        document.getElementById('pos').innerText = x + "," + y;
+    }
+</script>
+</html>

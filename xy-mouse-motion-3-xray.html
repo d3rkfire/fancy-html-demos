@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>XY Mouse Motion - X-Ray</title>
+    <style>
+        html {
+            background-color: #222;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        img {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        img#cover {
+            -webkit-mask-image: radial-gradient(circle, transparent 10%, black 10%);
+            -webkit-mask-repeat: no-repeat;
+        }
+
+        div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 200%;
+            width: 200%;
+            background-image: radial-gradient(circle, transparent 10%, black 10%, transparent 15%);
+        }
+    </style>
+</head>
+
+<body>
+    <img id="content" src="https://i.imgur.com/WCLAx4C.jpg" />
+    <img id="cover" src="https://i.imgur.com/Sx5aK4L.jpg" />
+    <div id="scope"></div>
+</body>
+<script>
+    window.onload = function () {
+        // All layers should have the same width and height
+        var layers = [
+            document.getElementById("content"),
+            document.getElementById("cover")
+        ];
+
+        var gapX = layers[0].width - window.innerWidth;
+        var gapY = layers[0].height - window.innerHeight;
+
+        var scope = document.getElementById("scope");
+        var scopeCenterX = scope.offsetWidth / 2;
+        var scopeCenterY = scope.offsetHeight / 2;
+        layers[1].style.webkitMaskSize = scope.offsetWidth + "px " + scope.offsetHeight + "px";
+
+        window.onmousemove = function (ev) {
+            var diffX = (ev.clientX / window.innerWidth);
+            var diffY = (ev.clientY / window.innerHeight);
+
+            // same
+            for(var i = 0; i < layers.length; i++) {
+                layers[i].style.left = gapX * -diffX + "px";
+                layers[i].style.top = gapY * -diffY + "px";
+            }
+
+            scope.style.left = (ev.clientX - scopeCenterX) + "px";
+            scope.style.top = (ev.clientY - scopeCenterY) + "px";
+
+            layers[1].style.webkitMaskPositionX =(layers[1].style.left.replace("px", "") + ev.clientX - scopeCenterX) + "px";
+            layers[1].style.webkitMaskPositionY = (-layers[1].style.top.replace("px", "") + ev.clientY - scopeCenterY) + "px";
+
+            console.log(layers[1].style.webkitMaskPositionX);
+        }
+
+        // Toggle X-Ray Effect
+        alternateMask = "none";
+        alternatescope = "none";
+        window.onkeypress = function(ev) {
+            if (ev.keyCode == 32) {
+                // Spacebar
+                var tempscope = getComputedStyle(scope)["backgroundImage"];
+                scope.style.backgroundImage = alternatescope;
+                alternatescope = tempscope;
+
+                var tempMask = getComputedStyle(layers[1])["webkitMaskImage"];
+                layers[1].style.webkitMaskImage = alternateMask;
+                alternateMask = tempMask;
+            }
+        }
+    }
+</script>
+
+</html>

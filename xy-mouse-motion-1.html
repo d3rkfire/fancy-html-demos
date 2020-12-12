@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>XY Mouse Motion</title>
+    <style>
+        html {
+            background-color: #222;
+            overflow: hidden;
+        }
+
+        img {
+            position: absolute;
+            height: 120%;
+            top: -10%;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="image" src="https://i.imgur.com/Sx5aK4L.jpg" />
+</body>
+<script>
+    window.onload = function () {
+        var image = document.getElementById("image");
+        
+        var gapX = image.width - window.innerWidth;
+        var gapY = image.height - window.innerHeight;
+
+        window.onmousemove = function(ev) {
+            var diffX = (ev.clientX / window.innerWidth);
+            var diffY = (ev.clientY / window.innerHeight);
+
+            // same
+            image.style.left = gapX * -diffX + "px";
+            image.style.top = gapY * -diffY + "px";
+
+            // reverse
+            // image.style.left = gapX * (diffX - 1) + "px";
+            // image.style.top = gapY * (diffY - 1) + "px";
+        }
+    }
+</script>
+
+</html>

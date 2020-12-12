@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Image</title>
+	<style>
+		body {
+			text-align: center;
+			overflow: hidden;
+			background-color: #222;
+			transition: background-color 500ms ease;
+		}
+
+		img {
+			width: auto;
+			height: 50vh;
+			margin: 0 auto;
+			transition: height 500ms ease;
+		}
+
+		img:hover {
+			height: 100vh;
+		}
+	</style>
+</head>
+
+<body>
+	<img id="image" src="https://i.imgur.com/rsD0RUq.jpg">
+</body>
+<script>
+	var image = document.getElementById("image");
+	image.onmouseover = function () {
+		document.querySelector("body").style.backgroundColor = "#000";
+	}
+	image.onmouseout = function () {
+		document.querySelector("body").style.backgroundColor = "#222";
+	}
+
+</script>
+
+</html>

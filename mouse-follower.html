@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mouse Follower</title>
+        <style>
+            body {
+                background-color: #222;
+            }
+            div {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100px;
+                height: 100px;
+                background-color: dodgerblue;
+                transition-property: left, top;
+                transition-duration: 1s;
+                transition-timing-function: ease;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+    </body>
+    <script>
+        var box = document.getElementById("box");
+        window.onclick = function(ev) {
+            console.log(ev.clientX + " " + ev.clientY);
+            box.style.left = ev.clientX + "px";
+            box.style.top = ev.clientY + "px";
+        }
+    </script>
+</html>

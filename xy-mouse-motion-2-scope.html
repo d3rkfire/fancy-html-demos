@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>XY Mouse Motion - Scope</title>
+    <style>
+        html {
+            background-color: #222;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        img {
+            position: absolute;
+            height: 120%;
+            top: -10%;
+            left: 0;
+        }
+
+        div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 200%;
+            width: 200%;
+            background-image: radial-gradient(circle, rgba(0,0,0,0), black 15%);
+        }
+    </style>
+</head>
+
+<body>
+    <img id="image" src="https://i.imgur.com/Sx5aK4L.jpg" />
+    <div id="scope"></div>
+</body>
+<script>
+    window.onload = function () {
+        var image = document.getElementById("image");
+        var gapX = image.width - window.innerWidth;
+        var gapY = image.height - window.innerHeight;
+
+        var scope = document.getElementById("scope");
+        var scopeCenterX = scope.offsetWidth / 2;
+        var scopeCenterY = scope.offsetHeight / 2;
+
+        window.onmousemove = function (ev) {
+            var diffX = (ev.clientX / window.innerWidth);
+            var diffY = (ev.clientY / window.innerHeight);
+
+            // same
+            image.style.left = gapX * -diffX + "px";
+            image.style.top = gapY * -diffY + "px";
+
+            // reverse
+            // image.style.left = gapX * (diffX - 1) + "px";
+            // image.style.top = gapY * (diffY - 1) + "px";
+console.log((ev.clientX - scopeCenterX) + "px");
+            scope.style.left = (ev.clientX - scopeCenterX) + "px";
+            scope.style.top = (ev.clientY - scopeCenterY) + "px";
+        }
+    }
+</script>
+
+</html>

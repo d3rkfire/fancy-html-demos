@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JS Drag and Drop</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-evenly;
+            padding-top: 10%;
+            background-color: #222;
+        }
+
+        div.holder {
+            padding: 20px;
+            width: 400px;
+            height: 500px;
+            border: 2px solid yellowgreen;
+        }
+
+        div.item {
+            width: 100%;
+            height: 100px;
+        }
+
+        div#a {
+            background-color: dodgerblue;
+        }
+        div#b {
+            background-color: violet;
+        }
+        div#c {
+            background-color: limegreen;
+        }
+        div#d {
+            background-color: orange;
+        }
+        div#e {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="holder" id="holderA">
+        <div class="item" id="a" draggable="true"></div>
+        <div class="item" id="b" draggable="true"></div>
+        <div class="item" id="c" draggable="true"></div>
+        <div class="item" id="d" draggable="true"></div>
+        <div class="item" id="e" draggable="true"></div>
+    </div>
+    <div class="holder" id="holderB"></div>
+</body>
+<script>
+    var divA = document.getElementById("holderA");
+    var divB = document.getElementById("holderB");
+
+    var dragged;
+    var drag = function (ev) {
+        dragged = ev.target;
+    }
+    var allowDrop = function(ev) {
+        ev.preventDefault();
+    }
+    var drop = function (ev) {
+        ev.preventDefault();
+        dragged.parentNode.removeChild(dragged);
+        ev.target.appendChild(dragged);
+    }
+
+    Array.from(document.getElementsByClassName("item")).forEach(element => {
+        element.addEventListener("dragstart", drag);
+    });
+
+    divA.addEventListener("dragover", allowDrop);
+    divB.addEventListener("dragover", allowDrop);
+    divA.addEventListener("drop", drop);
+    divB.addEventListener("drop", drop);
+</script>
+
+</html>

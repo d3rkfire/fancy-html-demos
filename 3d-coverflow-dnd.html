@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>3D Coverflow Drag and Drop</title>
+	<link rel="stylesheet" href="./lib/swiper.min.css">
+	<style>
+	body {
+		background: #AAA;
+		position: fixed;
+		width: 100%;
+	}
+	.container {
+		width: 100%;
+		padding-bottom: 50px;
+		text-align: center;
+		cursor: grab;
+	}
+	.swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 600px;
+      height: 800px;
+    }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/0k4nXYc.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/MDSfoBD.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/nCS7VtI.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/3YVtpHB.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/xQFXqz2.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/JtKT4nX.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/9dpuqdm.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/qd6BAx3.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/XqGkPEj.png')"></div>
+			<div class="swiper-slide" style="background-image:url('https://i.imgur.com/Xds9dpb.png')"></div>
+		</div>
+		<div class="pagination"></div>
+	</div>
+	
+	
+	<script src="./lib/swiper.min.js"></script>
+	<script>
+	// Swiper
+	var colors = ["#c7b2f2", "#9bd1f2", "#84e3d7", "#f4bda5", "#f2b2c2"];
+	var currentPos = 0;
+	
+	var swiper = new Swiper('.container', {
+		effect: 'coverflow',
+		centeredSlides: true,
+		slidesPerView: 'auto',
+		coverflowEffect: {
+			rotate: 50,
+			stretch: 0,
+			depth: 100,
+			modifier: 1,
+		},
+		pagination: {
+			el: '.pagination',
+		},
+		on: {
+			slideChange: function() {
+				var pos = currentPos;
+				while (pos == currentPos) pos = Math.floor(Math.random() * colors.length);
+				currentPos = pos;
+				document.body.style.background = colors[pos];
+			}
+		},
+    });
+	
+	// Drag and Drop Functions
+	function onDrop(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var reader = new FileReader();
+		var fileList = e.dataTransfer.files;
+
+		// Change current slide picture to the first file dropped
+		if (e.target.className.includes("swiper-slide")) {
+			reader.readAsDataURL(fileList[0]);
+			reader.onloadend = function() {
+				e.target.style.backgroundImage = 'url(' + reader.result + ')';
+			}
+		}
+
+		// Drop multiple files and change starting from the first slide
+		// var pos = 0;
+		// var total = fileList.length;
+		// function callback() {
+		// 	reader.readAsDataURL(fileList[pos]);
+		// 	reader.onloadend = function() {
+		// 		document.getElementsByClassName("swiper-slide")[pos].style.backgroundImage = 'url(' + reader.result + ')';
+		// 		if (pos < total - 1 && pos < 9) {
+		// 			pos += 1;
+		// 			callback();
+		// 		} else return;
+		// 	}
+		// }
+		// callback();
+	}
+	
+	function antiDefault(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	}
+	
+	document.body.ondragenter = antiDefault;
+	document.body.ondragover = antiDefault;
+	document.body.ondragleave = antiDefault;
+	document.body.ondrop = onDrop;
+	
+	</script>
+</body>
+</html>

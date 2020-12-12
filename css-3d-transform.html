@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>3D Transforms</title>
+    <style>
+        body {
+            background-color: #222;
+            text-align: center;
+            --size: 200px;
+        }
+
+        div {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(skyblue, dodgerblue);
+            margin: 50px;
+            transition: transform 500ms ease;
+        }
+
+        div#a:hover {
+            transform: translate3d(10px, 10px, 100px);
+        }
+
+        div#b:hover {
+            transform: rotate3d(1, 0, 0, 45deg);
+        }
+
+        div#c:hover {
+            transform: rotate3d(0, 1, 0, 45deg);
+        }
+
+        div#d:hover {
+            transform: rotate3d(0, 0, 1, 45deg);
+        }
+
+        div.scene {
+            width: 400px;
+            height: 400px;
+            background: none;
+            perspective: calc(var(--size) * 4);
+        }
+
+        div.cube {
+            position: relative;
+            background: none;
+            transform-style: preserve-3d;
+            transform-origin: 250px 150px;
+        }
+
+        div.face,
+        div.cube {
+            width: var(--size);
+            height: var(--size);
+        }
+
+        div.face {
+            background-size: var(--size);
+            position: absolute;
+        }
+
+        div.face.front {
+            background-image: url("https://i.imgur.com/QZE4S8L.png");
+            transform: translateZ(calc(var(--size)/2));
+        }
+
+        div.face.back {
+            background-image: url("https://i.imgur.com/V6L6k8c.png");
+            transform: rotateY(180deg) rotateZ(180deg) translateZ(calc(var(--size)/2));
+        }
+
+        div.face.right {
+            background-image: url("https://i.imgur.com/aYooke0.png");
+            transform: rotateY(90deg) translateZ(calc(var(--size)/2));
+        }
+
+        div.face.left {
+            background-image: url("https://i.imgur.com/Mn3z0vK.png");
+            transform: rotateY(270deg) translateZ(calc(var(--size)/2));
+        }
+
+        div.face.top {
+            background-image: url("https://i.imgur.com/J4CoNYX.png");
+            transform: rotateX(90deg) translateY(calc(var(--size)/2*-1));
+            transform-origin: top center;
+        }
+
+        div.face.bottom {
+            background-image: url("https://i.imgur.com/Zdt0CHE.png");
+            transform: rotateX(-90deg) translateY(calc(var(--size)/2));
+            transform-origin: bottom center;
+        }
+
+        div.cube:hover {
+            transform: rotate3d(0.5,1,0.5,-45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <div id="c"></div>
+    <div id="d"></div>
+    <br>
+
+    <div class="scene">
+        <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+    <br>
+    
+    <button onclick="Bottom()">Bottom</button>
+    <button onclick="Top()">Top</button>
+    <button onclick="Front()">Front</button>
+    <button onclick="Back()">Back</button>
+    <button onclick="Left()">Left</button>
+    <button onclick="Right()">Right</button>
+    <form oninput="UpdateValue()">
+        <input id="rangeX" type="range" min="0" max="360" value="180">
+        <input id="rangeY" type="range" min="0" max="360" value="180">
+        <input id="rangeZ" type="range" min="0" max="360" value="180">
+    </form>
+</body>
+<script>
+    var cube = document.getElementsByClassName("cube")[0];
+    function Front() { cube.style.transform = ""; }
+    function Back() { cube.style.transform = "rotateX(180deg)"; }
+    function Bottom() { cube.style.transform = "rotateX(90deg)"; }
+    function Top() { cube.style.transform = "rotateX(-90deg)"; }
+    function Left() { cube.style.transform = "rotateY(90deg)"; }
+    function Right() { cube.style.transform = "rotateY(-90deg)"; }
+
+    var x = 0;
+    var y = 0;
+    var z = 0;
+    function UpdateValue() {
+        var x = parseInt(document.getElementById("rangeX").value);
+        var y = parseInt(document.getElementById("rangeY").value);
+        var z = parseInt(document.getElementById("rangeZ").value);
+        
+        cube.style.transform = "rotateX(" + x + "deg) rotateY(" + y + "deg) rotateZ(" + z + "deg)";
+    }
+</script>
+
+</html>
